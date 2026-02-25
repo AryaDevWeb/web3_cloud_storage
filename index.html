@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLD — Web3 Cloud Storage</title>
+    <meta name="description"
+        content="Decentralized cloud storage powered by blockchain with client-side encryption and IPFS.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Full-Screen Drag Overlay -->
+    <div class="drag-overlay" id="dragOverlay">
+        <div class="drag-overlay-content">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="17 8 12 3 7 8" />
+                <line x1="12" y1="3" x2="12" y2="15" />
+            </svg>
+            <h2>Drop files here to upload</h2>
+            <p>Files will be stored securely on the blockchain</p>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <img src="logo CLD.svg" alt="CLD" class="logo-svg">
+        </div>
+
+        <nav class="nav-menu">
+            <div class="nav-section-label">Menu</div>
+            <div class="nav-item active" data-page="home">
+                <span class="nav-icon">🏠</span><span>Home</span>
+            </div>
+            <div class="nav-item" data-page="files">
+                <span class="nav-icon">📁</span><span>My Files</span>
+            </div>
+            <div class="nav-item" data-page="activity">
+                <span class="nav-icon">📋</span><span>Activity</span>
+            </div>
+            <div class="nav-item" data-page="shared">
+                <span class="nav-icon">🔗</span><span>Shared</span>
+            </div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="storage-info">
+                <div class="storage-label">Security</div>
+                <div class="storage-features">
+                    <span class="feature-badge">🔒 AES-256</span>
+                    <span class="feature-badge">📌 IPFS</span>
+                    <span class="feature-badge">🔐 SIWE</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="header">
+            <div class="search-container">
+                <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round">
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="M21 21l-4.35-4.35" />
+                </svg>
+                <input type="text" class="search-bar" id="searchBar" placeholder="Search files...">
+            </div>
+            <div class="header-right">
+                <button class="connect-btn" id="connectWallet">
+                    <span class="btn-icon">🔗</span> Connect Wallet
+                </button>
+                <div class="wallet-address" id="walletAddress" style="display: none;">
+                    <span class="wallet-dot"></span><span>Not Connected</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="wallet-details" style="display: none;">
+            <div class="wallet-detail-item"><span class="detail-label">Network</span><span class="detail-value"
+                    id="networkInfo">—</span></div>
+            <div class="wallet-detail-item"><span class="detail-label">Balance</span><span class="detail-value"
+                    id="balanceInfo">0 CLD</span></div>
+        </div>
+
+        <div class="content-area">
+            <!-- ═══ HOME PAGE ═══ -->
+            <div class="page" id="page-home">
+                <div class="section-title">Upload Files</div>
+                <div class="upload-zone" id="uploadZone">
+                    <div class="upload-glow"></div>
+                    <div class="upload-content">
+                        <div class="upload-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="17 8 12 3 7 8" />
+                                <line x1="12" y1="3" x2="12" y2="15" />
+                            </svg>
+                        </div>
+                        <h2>Click or drag files here</h2>
+                        <p>Max 100MB per file · Stored on blockchain</p>
+                        <div class="encrypt-toggle">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="encryptToggle">
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span class="encrypt-label">🔒 Encrypt before upload</span>
+                        </div>
+                    </div>
+                </div>
+                <input type="file" id="fileInput" class="file-input" multiple>
+
+                <div class="upload-progress" id="uploadProgress" style="display: none;">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">Uploading...</div>
+                </div>
+
+                <div class="storage-stats">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalFiles">0</div>
+                        <div class="stat-label">Total Files</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalSize">0 B</div>
+                        <div class="stat-label">Storage Used</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalShared">0</div>
+                        <div class="stat-label">On IPFS</div>
+                    </div>
+                </div>
+
+                <div class="section-title">Recent Files</div>
+                <div class="file-list-header">
+                    <div class="file-name">Name</div>
+                    <div class="file-size">Size</div>
+                    <div class="file-date">Date</div>
+                    <div class="file-actions">Actions</div>
+                </div>
+                <div class="file-list-container" id="homeFileList"></div>
+            </div>
+
+            <!-- ═══ MY FILES PAGE ═══ -->
+            <div class="page" id="page-files" style="display:none">
+                <div class="section-title">My Files</div>
+                <div class="category-tabs">
+                    <button class="cat-tab active" data-cat="all">All</button>
+                    <button class="cat-tab" data-cat="images">🖼️ Images</button>
+                    <button class="cat-tab" data-cat="videos">🎬 Videos</button>
+                    <button class="cat-tab" data-cat="documents">📄 Docs</button>
+                    <button class="cat-tab" data-cat="audio">🎵 Audio</button>
+                    <button class="cat-tab" data-cat="archives">📦 Archives</button>
+                    <button class="cat-tab" data-cat="code">⚡ Code</button>
+                </div>
+                <div class="file-list-header">
+                    <div class="file-name">Name</div>
+                    <div class="file-size">Size</div>
+                    <div class="file-date">Date</div>
+                    <div class="file-actions">Actions</div>
+                </div>
+                <div class="file-list-container" id="filesFileList"></div>
+            </div>
+
+            <!-- ═══ ACTIVITY PAGE ═══ -->
+            <div class="page" id="page-activity" style="display:none">
+                <div class="section-title">Blockchain Activity</div>
+                <div class="activity-list" id="activityList">
+                    <div class="empty-state" style="display:block">
+                        <div class="empty-icon">📋</div>
+                        <h3>Connect wallet to see activity</h3>
+                        <p>Your blockchain transactions will appear here</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ SHARED PAGE ═══ -->
+            <div class="page" id="page-shared" style="display:none">
+                <div class="empty-state" style="display:block">
+                    <div class="empty-icon">🔗</div>
+                    <h3>Shared Files</h3>
+                    <p>Files pinned to IPFS are accessible via public gateways</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Preview Modal -->
+    <div class="modal-overlay" id="previewModal" onclick="if(event.target===this)closePreviewModal()">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 id="previewTitle">File Preview</h3>
+                <button class="modal-close" onclick="closePreviewModal()">✕</button>
+            </div>
+            <div class="modal-body" id="previewBody"></div>
+        </div>
+    </div>
+
+    <!-- Rename Modal -->
+    <div class="modal-overlay rename-modal" id="renameModal" onclick="if(event.target===this)closeRenameModal()">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>Rename File</h3>
+                <button class="modal-close" onclick="closeRenameModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="rename-form">
+                    <input type="text" class="rename-input" id="renameInput" placeholder="Enter new file name"
+                        autocomplete="off">
+                    <div class="rename-actions">
+                        <button class="rename-cancel" onclick="closeRenameModal()">Cancel</button>
+                        <button class="rename-confirm" id="renameConfirm">Rename</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="status-message" id="statusMessage"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.9.0/ethers.umd.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/crypto.js"></script>
+    <script src="js/web3.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
