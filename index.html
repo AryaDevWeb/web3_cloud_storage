@@ -21,9 +21,8 @@
         <div class="drag-overlay-content">
             <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
                 stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="17 8 12 3 7 8" />
-                <line x1="12" y1="3" x2="12" y2="15" />
+                <path
+                    d="M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" />
             </svg>
             <h2>Drop files here to upload</h2>
             <p>Files will be stored securely on the blockchain</p>
@@ -39,16 +38,32 @@
         <nav class="nav-menu">
             <div class="nav-section-label">Menu</div>
             <div class="nav-item active" data-page="home">
-                <span class="nav-icon">🏠</span><span>Home</span>
+                <span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5">
+                        <path
+                            d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                    </svg></span><span>Home</span>
             </div>
             <div class="nav-item" data-page="files">
-                <span class="nav-icon">📁</span><span>My Files</span>
+                <span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5">
+                        <path
+                            d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-19.5 0A2.25 2.25 0 0 0 4.5 15h15a2.25 2.25 0 0 0 2.25-2.25m-19.5 0v.75A2.25 2.25 0 0 0 4.5 18h15a2.25 2.25 0 0 0 2.25-2.25v-.75" />
+                    </svg></span><span>My Files</span>
             </div>
             <div class="nav-item" data-page="activity">
-                <span class="nav-icon">📋</span><span>Activity</span>
+                <span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5">
+                        <path
+                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4l2 2h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2Z" />
+                    </svg></span><span>Activity</span>
             </div>
             <div class="nav-item" data-page="shared">
-                <span class="nav-icon">🔗</span><span>Shared</span>
+                <span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5">
+                        <path
+                            d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+                    </svg></span><span>Shared</span>
             </div>
         </nav>
 
@@ -56,9 +71,9 @@
             <div class="storage-info">
                 <div class="storage-label">Security</div>
                 <div class="storage-features">
-                    <span class="feature-badge">🔒 AES-256</span>
-                    <span class="feature-badge">📌 IPFS</span>
-                    <span class="feature-badge">🔐 SIWE</span>
+                    <span class="feature-badge">AES-256</span>
+                    <span class="feature-badge">IPFS</span>
+                    <span class="feature-badge">SIWE</span>
                 </div>
             </div>
         </div>
@@ -77,7 +92,14 @@
             </div>
             <div class="header-right">
                 <button class="connect-btn" id="connectWallet">
-                    <span class="btn-icon">🔗</span> Connect Wallet
+                    <span class="btn-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5">
+                            <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            <path
+                                d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z" />
+                        </svg>
+                    </span> Connect Wallet
                 </button>
                 <div class="wallet-address" id="walletAddress" style="display: none;">
                     <span class="wallet-dot"></span><span>Not Connected</span>
@@ -102,9 +124,8 @@
                         <div class="upload-icon">
                             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                                <polyline points="17 8 12 3 7 8" />
-                                <line x1="12" y1="3" x2="12" y2="15" />
+                                <path
+                                    d="M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" />
                             </svg>
                         </div>
                         <h2>Click or drag files here</h2>
@@ -114,7 +135,7 @@
                                 <input type="checkbox" id="encryptToggle">
                                 <span class="toggle-slider"></span>
                             </label>
-                            <span class="encrypt-label">🔒 Encrypt before upload</span>
+                            <span class="encrypt-label">Encrypt before upload</span>
                         </div>
                     </div>
                 </div>
@@ -157,12 +178,41 @@
                 <div class="section-title">My Files</div>
                 <div class="category-tabs">
                     <button class="cat-tab active" data-cat="all">All</button>
-                    <button class="cat-tab" data-cat="images">🖼️ Images</button>
-                    <button class="cat-tab" data-cat="videos">🎬 Videos</button>
-                    <button class="cat-tab" data-cat="documents">📄 Docs</button>
-                    <button class="cat-tab" data-cat="audio">🎵 Audio</button>
-                    <button class="cat-tab" data-cat="archives">📦 Archives</button>
-                    <button class="cat-tab" data-cat="code">⚡ Code</button>
+                    <button class="cat-tab" data-cat="images"><svg width="14" height="14" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="1.5"
+                            style="vertical-align:text-bottom;margin-right:4px;">
+                            <path
+                                d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                        </svg>Images</button>
+                    <button class="cat-tab" data-cat="videos"><svg width="14" height="14" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="1.5"
+                            style="vertical-align:text-bottom;margin-right:4px;">
+                            <path
+                                d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" />
+                        </svg>Videos</button>
+                    <button class="cat-tab" data-cat="documents"><svg width="14" height="14" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="1.5"
+                            style="vertical-align:text-bottom;margin-right:4px;">
+                            <path
+                                d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                        </svg>Docs</button>
+                    <button class="cat-tab" data-cat="audio"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.5"
+                            style="vertical-align:text-bottom;margin-right:4px;">
+                            <path
+                                d="m9 9 10.5-3m0 6.553v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 1 1-.99-3.467l2.31-.66a2.25 2.25 0 0 0 1.632-2.163Zm0 0V2.25L9 5.25v10.303A2.25 2.25 0 0 1 7.368 17.72l-1.32.377a1.803 1.803 0 1 1-.99-3.467l2.31-.66A2.25 2.25 0 0 0 9 11.813V9Z" />
+                        </svg>Audio</button>
+                    <button class="cat-tab" data-cat="archives"><svg width="14" height="14" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="1.5"
+                            style="vertical-align:text-bottom;margin-right:4px;">
+                            <path
+                                d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
+                        </svg>Archives</button>
+                    <button class="cat-tab" data-cat="code"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.5"
+                            style="vertical-align:text-bottom;margin-right:4px;">
+                            <path d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
+                        </svg>Code</button>
                 </div>
                 <div class="file-list-header">
                     <div class="file-name">Name</div>
@@ -178,7 +228,11 @@
                 <div class="section-title">Blockchain Activity</div>
                 <div class="activity-list" id="activityList">
                     <div class="empty-state" style="display:block">
-                        <div class="empty-icon">📋</div>
+                        <div class="empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="1.5" style="margin: 0 auto;">
+                                <path
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4l2 2h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2Z" />
+                            </svg></div>
                         <h3>Connect wallet to see activity</h3>
                         <p>Your blockchain transactions will appear here</p>
                     </div>
@@ -188,7 +242,11 @@
             <!-- ═══ SHARED PAGE ═══ -->
             <div class="page" id="page-shared" style="display:none">
                 <div class="empty-state" style="display:block">
-                    <div class="empty-icon">🔗</div>
+                    <div class="empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.5" style="margin: 0 auto;">
+                            <path
+                                d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+                        </svg></div>
                     <h3>Shared Files</h3>
                     <p>Files pinned to IPFS are accessible via public gateways</p>
                 </div>
@@ -201,7 +259,10 @@
         <div class="modal-container">
             <div class="modal-header">
                 <h3 id="previewTitle">File Preview</h3>
-                <button class="modal-close" onclick="closePreviewModal()">✕</button>
+                <button class="modal-close" onclick="closePreviewModal()"><svg width="20" height="20"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 18L18 6M6 6l12 12" />
+                    </svg></button>
             </div>
             <div class="modal-body" id="previewBody"></div>
         </div>
@@ -212,7 +273,10 @@
         <div class="modal-container">
             <div class="modal-header">
                 <h3>Rename File</h3>
-                <button class="modal-close" onclick="closeRenameModal()">✕</button>
+                <button class="modal-close" onclick="closeRenameModal()"><svg width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 18L18 6M6 6l12 12" />
+                    </svg></button>
             </div>
             <div class="modal-body">
                 <div class="rename-form">

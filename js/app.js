@@ -1,6 +1,22 @@
-// ═══════════════════════════════════════════════
-// CLD App Module — UI Logic, Pages, Events
-// ═══════════════════════════════════════════════
+const HERO_ICONS = {
+    home: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>`,
+    folder: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-19.5 0A2.25 2.25 0 0 0 4.5 15h15a2.25 2.25 0 0 0 2.25-2.25m-19.5 0v.75A2.25 2.25 0 0 0 4.5 18h15a2.25 2.25 0 0 0 2.25-2.25v-.75" /></svg>`,
+    document: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" /></svg>`,
+    image: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" /></svg>`,
+    video: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" /></svg>`,
+    audio: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m9 9 10.5-3m0 6.553v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 1 1-.99-3.467l2.31-.66a2.25 2.25 0 0 0 1.632-2.163Zm0 0V2.25L9 5.25v10.303A2.25 2.25 0 0 1 7.368 17.72l-1.32.377a1.803 1.803 0 1 1-.99-3.467l2.31-.66A2.25 2.25 0 0 0 9 11.813V9Z" /></svg>`,
+    code: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" /></svg>`,
+    archive: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" /></svg>`,
+    view: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" /><path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>`,
+    rename: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" /></svg>`,
+    download: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>`,
+    share: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" /></svg>`,
+    delete: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" /></svg>`,
+    lock: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" /></svg>`,
+    pin: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /><path d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" /></svg>`,
+    upload: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" /></svg>`,
+    activity: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4l2 2h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2Z" /></svg>`
+};
 
 document.addEventListener('DOMContentLoaded', () => initApp());
 
@@ -99,7 +115,7 @@ function initApp() {
             balanceInfo.textContent = parseFloat(balance).toFixed(4) + ' CLD';
             document.querySelector('.wallet-details').style.display = 'flex';
 
-            showStatus('✅ Wallet connected & authenticated!', 'success');
+            showStatus('Wallet connected & authenticated!', 'success');
             await loadFiles();
 
         } catch (error) {
@@ -169,7 +185,7 @@ function initApp() {
                 let uploadFileName = file.name;
 
                 if (encrypt) {
-                    updateProgress(completed, total, `🔐 Encrypting ${file.name}...`);
+                    updateProgress(completed, total, `Encrypting ${file.name}...`);
                     const arrayBuffer = await file.arrayBuffer();
                     const encrypted = await CLDCrypto.encrypt(arrayBuffer);
                     const encBlob = new Blob([encrypted], { type: 'application/octet-stream' });
@@ -181,19 +197,19 @@ function initApp() {
                     uploadBody.append('file', file);
                 }
 
-                updateProgress(completed, total, `📤 Uploading ${file.name}...`);
+                updateProgress(completed, total, `Uploading ${file.name}...`);
                 const response = await fetch(CONFIG.SERVER.url + '/api/upload', { method: 'POST', body: uploadBody });
                 if (!response.ok) { const e = await response.json().catch(() => ({})); throw new Error(e.error || 'Upload failed'); }
                 const result = await response.json();
 
-                updateProgress(completed, total, `⛓️ Storing ${file.name} on blockchain...`);
+                updateProgress(completed, total, `Storing ${file.name} on blockchain...`);
                 await uploadFileOnChain(result.fileId, result.ipfsHash || '', uploadFileName, result.fileSize, encrypt);
 
                 completed++;
-                showStatus(`✅ ${file.name} uploaded${encrypt ? ' (encrypted)' : ''}${result.ipfsHash ? ' + IPFS' : ''}!`, 'success');
+                showStatus(`${file.name} uploaded${encrypt ? ' (encrypted)' : ''}${result.ipfsHash ? ' + IPFS' : ''}!`, 'success');
             } catch (error) {
                 console.error('Upload error:', error);
-                showStatus(`❌ Failed: ${file.name}: ${error.message}`, 'error');
+                showStatus(`Failed: ${file.name}: ${error.message}`, 'error');
             }
         }
 
@@ -217,7 +233,7 @@ function initApp() {
         container.innerHTML = '';
 
         if (files.length === 0) {
-            container.innerHTML = '<div class="empty-state" style="display:block"><div class="empty-icon">📂</div><h3>No files yet</h3><p>Upload files to get started</p></div>';
+            container.innerHTML = `<div class="empty-state" style="display:block"><div class="empty-icon">${HERO_ICONS.folder}</div><h3>No files yet</h3><p>Upload files to get started</p></div>`;
             return;
         }
 
@@ -242,17 +258,17 @@ function initApp() {
                 <div class="file-date">${formatDate(file.uploadTime)}</div>
                 <div class="file-actions">
                     <button class="kebab-btn" data-index="${file.index}" aria-label="Actions" title="Actions">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <circle cx="8" cy="3" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="8" cy="13" r="1.5"/>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/>
                         </svg>
                     </button>
                     <div class="file-dropdown" id="dropdown-${file.index}">
-                        <button class="dropdown-item" onclick="viewFileAction('${safeId}','${safeName}',${file.isEncrypted})"><span>👁️</span> View</button>
-                        <button class="dropdown-item" onclick="renameFileAction(${file.index},'${safeName}')"><span>✏️</span> Rename</button>
-                        <button class="dropdown-item" onclick="downloadFileAction('${safeId}','${safeName}',${file.isEncrypted})"><span>⬇️</span> Download</button>
-                        <button class="dropdown-item" onclick="shareFileAction('${safeId}','${escapeAttr(file.ipfsHash || '')}')"><span>🔗</span> Share Link</button>
+                        <button class="dropdown-item" onclick="viewFileAction('${safeId}','${safeName}',${file.isEncrypted})"><span>${HERO_ICONS.view}</span> View</button>
+                        <button class="dropdown-item" onclick="renameFileAction(${file.index},'${safeName}')"><span>${HERO_ICONS.rename}</span> Rename</button>
+                        <button class="dropdown-item" onclick="downloadFileAction('${safeId}','${safeName}',${file.isEncrypted})"><span>${HERO_ICONS.download}</span> Download</button>
+                        <button class="dropdown-item" onclick="shareFileAction('${safeId}','${escapeAttr(file.ipfsHash || '')}')"><span>${HERO_ICONS.share}</span> Share Link</button>
                         <div class="dropdown-divider"></div>
-                        <button class="dropdown-item dropdown-delete" onclick="deleteFileAction(${file.index},'${safeId}')"><span>🗑️</span> Delete</button>
+                        <button class="dropdown-item dropdown-delete" onclick="deleteFileAction(${file.index},'${safeId}')"><span>${HERO_ICONS.delete}</span> Delete</button>
                     </div>
                 </div>`;
             container.appendChild(el);
@@ -299,8 +315,9 @@ function initApp() {
             events.forEach(event => {
                 const item = document.createElement('div');
                 item.className = 'activity-item';
+                const icon = HERO_ICONS[event.type] || HERO_ICONS.activity;
                 item.innerHTML = `
-                    <div class="activity-icon">${event.icon}</div>
+                    <div class="activity-icon">${icon}</div>
                     <div class="activity-details">
                         <div class="activity-label">${event.label}</div>
                         <div class="activity-file">${escapeHtml(event.fileName || event.fileId?.substring(0, 20) + '...' || '')}</div>
@@ -357,7 +374,7 @@ async function viewFileAction(fileId, fileName, isEncrypted) {
     const title = document.getElementById('previewTitle');
     const body = document.getElementById('previewBody');
 
-    title.textContent = fileName + (isEncrypted ? ' 🔒' : '');
+    title.textContent = fileName + (isEncrypted ? ' (Encrypted)' : '');
     body.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-muted)">Loading preview...</div>';
     modal.classList.add('show');
 
@@ -368,7 +385,7 @@ async function viewFileAction(fileId, fileName, isEncrypted) {
         if (isEncrypted) {
             const resp = await fetch(fileUrl);
             const encBuffer = await resp.arrayBuffer();
-            window.showStatus('🔐 Decrypting file...', 'info');
+            window.showStatus('Decrypting file...', 'info');
             const decrypted = await CLDCrypto.decrypt(encBuffer);
 
             if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp'].includes(ext)) {
@@ -380,9 +397,9 @@ async function viewFileAction(fileId, fileName, isEncrypted) {
             } else {
                 const blob = new Blob([decrypted]);
                 const url = URL.createObjectURL(blob);
-                body.innerHTML = `<div class="preview-unsupported"><div class="preview-unsupported-icon">${getFileIcon(fileName)}</div><h3>${escapeHtml(fileName)}</h3><p>🔒 Decrypted successfully</p><a href="${url}" download="${escapeHtml(fileName)}" class="preview-download-btn">⬇️ Download Decrypted</a></div>`;
+                body.innerHTML = `<div class="preview-unsupported"><div class="preview-unsupported-icon">${getFileIcon(fileName)}</div><h3>${escapeHtml(fileName)}</h3><p>Decrypted successfully</p><a href="${url}" download="${escapeHtml(fileName)}" class="preview-download-btn">Download Decrypted</a></div>`;
             }
-            window.showStatus('✅ File decrypted!', 'success');
+            window.showStatus('File decrypted!', 'success');
         } else {
             if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp', 'ico'].includes(ext)) {
                 body.innerHTML = `<img src="${fileUrl}" class="preview-image" alt="${escapeHtml(fileName)}">`;
@@ -391,17 +408,17 @@ async function viewFileAction(fileId, fileName, isEncrypted) {
             } else if (['mp4', 'webm', 'ogg'].includes(ext)) {
                 body.innerHTML = `<video controls class="preview-video"><source src="${fileUrl}"></video>`;
             } else if (['mp3', 'wav', 'flac'].includes(ext)) {
-                body.innerHTML = `<div class="preview-audio-container"><div class="preview-audio-icon">🎵</div><div class="preview-audio-name">${escapeHtml(fileName)}</div><audio controls class="preview-audio"><source src="${fileUrl}"></audio></div>`;
+                body.innerHTML = `<div class="preview-audio-container"><div class="preview-audio-icon">${HERO_ICONS.audio}</div><div class="preview-audio-name">${escapeHtml(fileName)}</div><audio controls class="preview-audio"><source src="${fileUrl}"></audio></div>`;
             } else if (['txt', 'md', 'json', 'js', 'py', 'html', 'css', 'xml', 'yaml', 'csv', 'log', 'sol'].includes(ext)) {
                 const resp = await fetch(fileUrl);
                 const text = await resp.text();
                 body.innerHTML = `<pre class="preview-text">${escapeHtml(text.substring(0, 50000))}</pre>`;
             } else {
-                body.innerHTML = `<div class="preview-unsupported"><div class="preview-unsupported-icon">${getFileIcon(fileName)}</div><h3>${escapeHtml(fileName)}</h3><p>Preview not available for .${ext} files</p><a href="${fileUrl}" download="${escapeHtml(fileName)}" class="preview-download-btn">⬇️ Download</a></div>`;
+                body.innerHTML = `<div class="preview-unsupported"><div class="preview-unsupported-icon">${getFileIcon(fileName)}</div><h3>${escapeHtml(fileName)}</h3><p>Preview not available for .${ext} files</p><a href="${fileUrl}" download="${escapeHtml(fileName)}" class="preview-download-btn">Download</a></div>`;
             }
         }
     } catch (error) {
-        body.innerHTML = `<div class="preview-unsupported"><div class="preview-unsupported-icon">⚠️</div><h3>Preview Failed</h3><p>${escapeHtml(error.message)}</p></div>`;
+        body.innerHTML = `<div class="preview-unsupported"><div class="preview-unsupported-icon">${HERO_ICONS.archive}</div><h3>Preview Failed</h3><p>${escapeHtml(error.message)}</p></div>`;
     }
 }
 
@@ -431,14 +448,14 @@ async function renameFileAction(index, currentName) {
 
     newBtn.addEventListener('click', async () => {
         const newName = input.value.trim() + input.dataset.ext;
-        if (!input.value.trim()) return window.showStatus('❌ Name cannot be empty', 'error');
+        if (!input.value.trim()) return window.showStatus('Name cannot be empty', 'error');
         newBtn.disabled = true; newBtn.textContent = 'Renaming...';
         try {
             await renameFileOnChain(parseInt(input.dataset.index), newName);
-            window.showStatus('✅ Renamed to ' + newName, 'success');
+            window.showStatus('Renamed to ' + newName, 'success');
             closeRenameModal();
             await window.loadFiles();
-        } catch (e) { window.showStatus('❌ Rename failed: ' + e.message, 'error'); }
+        } catch (e) { window.showStatus('Rename failed: ' + e.message, 'error'); }
         finally { newBtn.disabled = false; newBtn.textContent = 'Rename'; }
     });
 
@@ -451,7 +468,7 @@ async function downloadFileAction(fileId, fileName, isEncrypted) {
     try {
         const url = CONFIG.SERVER.url + '/api/files/' + encodeURIComponent(fileId) + '?name=' + encodeURIComponent(fileName);
         if (isEncrypted) {
-            window.showStatus('⬇️ Downloading & decrypting...', 'info');
+            window.showStatus('Downloading & decrypting...', 'info');
             const resp = await fetch(url);
             const encBuf = await resp.arrayBuffer();
             const decrypted = await CLDCrypto.decrypt(encBuf);
@@ -461,15 +478,15 @@ async function downloadFileAction(fileId, fileName, isEncrypted) {
             a.href = blobUrl; a.download = fileName;
             document.body.appendChild(a); a.click(); document.body.removeChild(a);
             URL.revokeObjectURL(blobUrl);
-            window.showStatus('✅ Decrypted download started!', 'success');
+            window.showStatus('Decrypted download started!', 'success');
         } else {
-            window.showStatus('⬇️ Downloading...', 'info');
+            window.showStatus('Downloading...', 'info');
             const a = document.createElement('a');
             a.href = url; a.download = fileName;
             document.body.appendChild(a); a.click(); document.body.removeChild(a);
-            window.showStatus('✅ Download started!', 'success');
+            window.showStatus('Download started!', 'success');
         }
-    } catch (e) { window.showStatus('❌ Download failed: ' + e.message, 'error'); }
+    } catch (e) { window.showStatus('Download failed: ' + e.message, 'error'); }
 }
 
 async function shareFileAction(fileId, ipfsHash) {
@@ -478,27 +495,27 @@ async function shareFileAction(fileId, ipfsHash) {
         let link;
         if (ipfsHash) {
             link = 'https://gateway.pinata.cloud/ipfs/' + ipfsHash;
-            window.showStatus('📌 IPFS link copied!', 'success');
+            window.showStatus('IPFS link copied!', 'success');
         } else {
             link = CONFIG.SERVER.url + '/api/files/' + encodeURIComponent(fileId);
-            window.showStatus('📋 Link copied!', 'success');
+            window.showStatus('Link copied!', 'success');
         }
         await navigator.clipboard.writeText(link);
-    } catch { window.showStatus('❌ Failed to copy link', 'error'); }
+    } catch { window.showStatus('Failed to copy link', 'error'); }
 }
 
 async function deleteFileAction(index, fileId) {
     closeAllDropdowns();
     if (!confirm('Are you sure you want to delete this file?')) return;
     try {
-        window.showStatus('🗑️ Deleting...', 'info');
+        window.showStatus('Deleting...', 'info');
         const headers = typeof getAuthHeaders === 'function' ? getAuthHeaders() : {};
         const resp = await fetch(CONFIG.SERVER.url + '/api/files/' + encodeURIComponent(fileId), { method: 'DELETE', headers });
         if (!resp.ok) { const e = await resp.json().catch(() => ({})); throw new Error(e.error || 'Server error'); }
         await deleteFileOnChain(index);
-        window.showStatus('✅ File deleted!', 'success');
+        window.showStatus('File deleted!', 'success');
         await window.loadFiles();
-    } catch (e) { window.showStatus('❌ Delete failed: ' + e.message, 'error'); }
+    } catch (e) { window.showStatus('Delete failed: ' + e.message, 'error'); }
 }
 
 function closeAllDropdowns() { document.querySelectorAll('.file-dropdown.show').forEach(d => d.classList.remove('show')); }
@@ -516,8 +533,15 @@ function formatDate(ts) {
 }
 function getFileIcon(fn) {
     const ext = fn.split('.').pop().toLowerCase();
-    const m = { pdf: '📕', doc: '📘', docx: '📘', txt: '📄', jpg: '🖼️', jpeg: '🖼️', png: '🖼️', gif: '🖼️', svg: '🖼️', webp: '🖼️', mp4: '🎬', avi: '🎬', mp3: '🎵', wav: '🎵', zip: '📦', rar: '📦', js: '⚡', py: '🐍', html: '🌐', css: '🎨', sol: '💎', json: '📋', csv: '📊', xls: '📊', xlsx: '📊' };
-    return m[ext] || '📄';
+    const m = {
+        pdf: HERO_ICONS.document, doc: HERO_ICONS.document, docx: HERO_ICONS.document, txt: HERO_ICONS.document,
+        jpg: HERO_ICONS.image, jpeg: HERO_ICONS.image, png: HERO_ICONS.image, gif: HERO_ICONS.image, svg: HERO_ICONS.image, webp: HERO_ICONS.image,
+        mp4: HERO_ICONS.video, avi: HERO_ICONS.video, mp3: HERO_ICONS.audio, wav: HERO_ICONS.audio,
+        zip: HERO_ICONS.archive, rar: HERO_ICONS.archive, js: HERO_ICONS.code, py: HERO_ICONS.code,
+        html: HERO_ICONS.code, css: HERO_ICONS.code, sol: HERO_ICONS.code, json: HERO_ICONS.document,
+        csv: HERO_ICONS.document, xls: HERO_ICONS.document, xlsx: HERO_ICONS.document
+    };
+    return m[ext] || HERO_ICONS.document;
 }
 function escapeHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 function escapeAttr(s) { return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }

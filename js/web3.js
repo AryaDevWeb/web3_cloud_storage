@@ -156,7 +156,6 @@ async function getActivityLog() {
         for (const e of uploadEvents) {
             events.push({
                 type: 'upload',
-                icon: '📤',
                 label: 'File Uploaded',
                 fileName: e.args[3],
                 fileId: e.args[1],
@@ -176,7 +175,6 @@ async function getActivityLog() {
             const block = await provider.getBlock(e.blockNumber);
             events.push({
                 type: 'delete',
-                icon: '🗑️',
                 label: 'File Deleted',
                 fileName: '',
                 fileId: e.args[2],
@@ -193,7 +191,6 @@ async function getActivityLog() {
             const block = await provider.getBlock(e.blockNumber);
             events.push({
                 type: 'rename',
-                icon: '✏️',
                 label: 'File Renamed',
                 fileName: e.args[2] + ' → ' + e.args[3],
                 blockNumber: e.blockNumber,
