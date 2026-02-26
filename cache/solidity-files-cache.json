@@ -1,43 +1,8 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "C:\\Users\\Arya\\OneDrive\\Documents\\web3-cloud-storage\\contracts\\CloudStorage.sol": {
-      "lastModificationDate": 1771900520327,
-      "contentHash": "94ea7ab8c503aaa0bcc462a513947123",
-      "sourceName": "contracts/CloudStorage.sol",
-      "solcConfig": {
-        "version": "0.8.19",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.19"
-      ],
-      "artifacts": [
-        "CloudStorage"
-      ]
-    },
-    "C:\\Users\\Arya\\OneDrive\\Documents\\GitHub\\web3_cloud_storage\\contracts\\CloudStorage.sol": {
-      "lastModificationDate": 1772024987771,
+    "C:\\arya\\web3_cloud_storage\\web3_cloud_storage\\contracts\\CloudStorage.sol": {
+      "lastModificationDate": 1772062924307,
       "contentHash": "94ea7ab8c503aaa0bcc462a513947123",
       "sourceName": "contracts/CloudStorage.sol",
       "solcConfig": {
