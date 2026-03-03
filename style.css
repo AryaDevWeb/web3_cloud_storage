@@ -1496,6 +1496,8 @@ body {
     /* Body layout */
     body {
         flex-direction: column;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
 
     /* Show hamburger */
@@ -1503,7 +1505,7 @@ body {
         display: flex;
     }
 
-    /* Sidebar as mobile drawer */
+    /* Sidebar as mobile drawer — hidden off-screen by default */
     .sidebar {
         position: fixed;
         top: 0;
@@ -1511,10 +1513,12 @@ body {
         bottom: 0;
         width: 280px;
         min-width: 280px;
+        height: 100%;
         z-index: 50;
         transform: translateX(-100%);
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         box-shadow: none;
+        animation: none;
     }
 
     .sidebar.open {
