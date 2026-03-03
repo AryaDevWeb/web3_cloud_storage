@@ -131,43 +131,93 @@ function initApp() {
         (accs) => { if (accs.length === 0) showStatus('Wallet disconnected', 'error'); window.location.reload(); }
     );
 
+    // ─── Mobile Detection ─────────────────────────
+    const mobileQuery = window.matchMedia('(max-width: 768px)');
+    function isMobile() { return mobileQuery.matches; }
+
+    // ─── Hamburger Menu ─────────────────────────
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const sidebar = document.querySelector('.sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+    function openSidebar() {
+        sidebar.classList.add('open');
+        sidebarOverlay.classList.add('show');
+    }
+    function closeSidebar() {
+        sidebar.classList.remove('open');
+        sidebarOverlay.classList.remove('show');
+    }
+
+    if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('click', () => {
+            sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
+        });
+    }
+    if (sidebarOverlay) {
+        sidebarOverlay.addEventListener('click', closeSidebar);
+    }
+
+    // Auto-close sidebar on nav click (mobile)
+    document.querySelectorAll('.nav-item[data-page]').forEach(item => {
+        item.addEventListener('click', () => {
+            if (isMobile()) closeSidebar();
+        });
+    });
+
+    // ─── Mobile Upload FAB ──────────────────────
+    const mobileUploadFab = document.getElementById('mobileUploadFab');
+    if (mobileUploadFab) {
+        mobileUploadFab.addEventListener('click', () => {
+            if (!userAddress) return showStatus('⚠️ Connect wallet first', 'error');
+            fileInput.click();
+        });
+    }
+
     // ─── Upload Zone ────────────────────────────
     uploadZone.addEventListener('click', () => {
         if (!userAddress) return showStatus('⚠️ Connect wallet first', 'error');
         fileInput.click();
     });
-    uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
-    uploadZone.addEventListener('dragleave', e => { e.preventDefault(); uploadZone.classList.remove('dragover'); });
-    uploadZone.addEventListener('drop', e => {
-        e.preventDefault(); uploadZone.classList.remove('dragover');
-        if (!userAddress) return showStatus('⚠️ Connect wallet first', 'error');
-        handleFileUpload(e.dataTransfer.files);
-    });
+
+    // Only register drag events on non-mobile devices
+    if (!isMobile()) {
+        uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
+        uploadZone.addEventListener('dragleave', e => { e.preventDefault(); uploadZone.classList.remove('dragover'); });
+        uploadZone.addEventListener('drop', e => {
+            e.preventDefault(); uploadZone.classList.remove('dragover');
+            if (!userAddress) return showStatus('⚠️ Connect wallet first', 'error');
+            handleFileUpload(e.dataTransfer.files);
+        });
+    }
+
     fileInput.addEventListener('change', e => {
         if (e.target.files.length > 0) { handleFileUpload(e.target.files); e.target.value = ''; }
     });
 
     // ─── Full-Screen Drag Overlay ───────────────
-    let dragCounter = 0;
-    document.addEventListener('dragenter', e => {
-        e.preventDefault();
-        dragCounter++;
-        if (userAddress) dragOverlay.classList.add('show');
-    });
-    document.addEventListener('dragleave', e => {
-        e.preventDefault();
-        dragCounter--;
-        if (dragCounter <= 0) { dragCounter = 0; dragOverlay.classList.remove('show'); }
-    });
-    document.addEventListener('dragover', e => e.preventDefault());
-    document.addEventListener('drop', e => {
-        e.preventDefault(); dragCounter = 0; dragOverlay.classList.remove('show');
-    });
-    dragOverlay.addEventListener('drop', e => {
-        e.preventDefault(); dragCounter = 0; dragOverlay.classList.remove('show');
-        if (!userAddress) return;
-        handleFileUpload(e.dataTransfer.files);
-    });
+    if (!isMobile()) {
+        let dragCounter = 0;
+        document.addEventListener('dragenter', e => {
+            e.preventDefault();
+            dragCounter++;
+            if (userAddress) dragOverlay.classList.add('show');
+        });
+        document.addEventListener('dragleave', e => {
+            e.preventDefault();
+            dragCounter--;
+            if (dragCounter <= 0) { dragCounter = 0; dragOverlay.classList.remove('show'); }
+        });
+        document.addEventListener('dragover', e => e.preventDefault());
+        document.addEventListener('drop', e => {
+            e.preventDefault(); dragCounter = 0; dragOverlay.classList.remove('show');
+        });
+        dragOverlay.addEventListener('drop', e => {
+            e.preventDefault(); dragCounter = 0; dragOverlay.classList.remove('show');
+            if (!userAddress) return;
+            handleFileUpload(e.dataTransfer.files);
+        });
+    }
 
     // ─── File Upload Handler ────────────────────
     async function handleFileUpload(fileList) {
